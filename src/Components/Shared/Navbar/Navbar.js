@@ -11,7 +11,7 @@ const Navbar = () => {
 					title="Home"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
@@ -24,7 +24,7 @@ const Navbar = () => {
 					title="Blogs"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
@@ -37,7 +37,7 @@ const Navbar = () => {
 					title="Product pricing"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
@@ -50,7 +50,7 @@ const Navbar = () => {
 					title="About us"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
@@ -63,7 +63,7 @@ const Navbar = () => {
 					title="Sign in"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
@@ -75,7 +75,7 @@ const Navbar = () => {
 					to="register"
 					className={({ isActive }) =>
 						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600`
+							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 					title="Sign up"
