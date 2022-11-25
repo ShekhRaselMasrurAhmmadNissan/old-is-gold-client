@@ -103,6 +103,18 @@ const Register = () => {
 						required
 					/>
 				</div>
+				<div className="space-y-1 text-sm">
+					<label htmlFor="role" className="block text-gray-600">
+						Role
+					</label>
+					<select
+						{...register('role')}
+						className="select select-bordered w-full"
+					>
+						<option value="buyer">Buyer</option>
+						<option value="seller">Seller</option>
+					</select>
+				</div>
 				{error && (
 					<p className="text-md font-medium text-red-500">{error}</p>
 				)}
