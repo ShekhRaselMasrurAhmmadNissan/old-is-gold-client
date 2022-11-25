@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Footer from '../../Components/Shared/Footer/Footer';
 import Navbar from '../../Components/Shared/Navbar/Navbar';
 
 const MainLayout = () => {
@@ -7,9 +8,7 @@ const MainLayout = () => {
 		<div>
 			<Navbar />
 			<Outlet />
-			<h2 className="text-3xl font-medium text-green-700">
-				Footer will Go Here.
-			</h2>
+			<Footer />
 		</div>
 	);
 };
