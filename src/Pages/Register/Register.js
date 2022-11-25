@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import SmallSpinner from '../../Components/Shared/SmallSpinner/SmallSpinner';
 import SocialLogin from '../../Components/Shared/SocialLogin/SocialLogin';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
 	const [error, setError] = useState('');
-	const { emailRegister, userUpdate } = useContext(AuthContext);
+	const { emailRegister, userUpdate, loading, setLoading } =
+		useContext(AuthContext);
 	const { register, handleSubmit } = useForm();
 	const navigate = useNavigate();
 
@@ -36,6 +38,7 @@ const Register = () => {
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
+			setLoading(false);
 		}
 	};
 	return (
@@ -103,12 +106,18 @@ const Register = () => {
 				{error && (
 					<p className="text-md font-medium text-red-500">{error}</p>
 				)}
-				<button
-					type="submit"
-					className="block w-full p-3 text-center text-lg text-gray-50 bg-blue-600 rounded-lg"
-				>
-					Sign Up
-				</button>
+				<p className="text-center">
+					{loading ? (
+						<SmallSpinner />
+					) : (
+						<button
+							type="submit"
+							className="block w-full p-3 text-center text-lg text-gray-50 bg-blue-600 rounded-lg"
+						>
+							Sign Up
+						</button>
+					)}
+				</p>
 			</form>
 			<SocialLogin />
 			<p className="text-sm text-center sm:px-6 text-gray-600">
