@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { FaUserAlt } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Navbar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { user, logout } = useContext(AuthContext);
+
+	const handleLogout = async () => {
+		try {
+			const response = await logout();
+			setIsMenuOpen(false);
+			// toast.success('Logout Successful.');
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const navItems = (
 		<>
 			<li>
@@ -57,32 +71,66 @@ const Navbar = () => {
 					About us
 				</NavLink>
 			</li>
-			<li>
-				<NavLink
-					to="login"
-					title="Sign in"
-					className={({ isActive }) =>
-						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
-							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
-					}
-				>
-					Sign in
-				</NavLink>
-			</li>
-			<li>
-				<NavLink
-					to="register"
-					className={({ isActive }) =>
-						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
-							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
-					}
-					title="Sign up"
-				>
-					Sign up
-				</NavLink>
-			</li>
+			{user && user.uid ? (
+				<>
+					<li>
+						<button
+							title="Logout"
+							className="font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl"
+							onClick={handleLogout}
+						>
+							Logout
+						</button>
+					</li>
+					<li className="flex items-center">
+						{user?.photoURL ? (
+							<img
+								src={user?.photoURL}
+								alt=""
+								title={user?.displayName}
+								className="h-12 w-12 object-center rounded-full"
+							/>
+						) : (
+							<FaUserAlt
+								title={user?.displayName}
+								className="h-12 w-12 rounded-full object-center"
+							/>
+						)}
+						<p className="lg:hidden text-white text-lg ml-3">
+							{user?.displayName}
+						</p>
+					</li>
+				</>
+			) : (
+				<>
+					<li>
+						<NavLink
+							to="login"
+							title="Sign in"
+							className={({ isActive }) =>
+								isActive
+									? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
+									: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
+							}
+						>
+							Sign in
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							to="register"
+							className={({ isActive }) =>
+								isActive
+									? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
+									: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
+							}
+							title="Sign up"
+						>
+							Sign up
+						</NavLink>
+					</li>
+				</>
+			)}
 		</>
 	);
 
