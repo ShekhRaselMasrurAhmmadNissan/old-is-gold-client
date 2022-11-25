@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import SmallSpinner from '../../Components/Shared/SmallSpinner/SmallSpinner';
 import SocialLogin from '../../Components/Shared/SocialLogin/SocialLogin';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
 	const [error, setError] = useState('');
-	const { login } = useContext(AuthContext);
+	const { login, loading, setLoading } = useContext(AuthContext);
 	const { register, handleSubmit } = useForm();
 
 	const location = useLocation();
@@ -15,6 +16,7 @@ const Login = () => {
 	const handleLogin = async (data) => {
 		console.log(data);
 		try {
+			setLoading(true);
 			const response = await login(data.email, data.password);
 			console.log(response.user);
 			const currentUser = { email: response.user.email };
@@ -31,6 +33,7 @@ const Login = () => {
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
+			setLoading(false);
 		}
 	};
 	return (
@@ -72,12 +75,19 @@ const Login = () => {
 				{error && (
 					<p className="text-md font-medium text-red-500">{error}</p>
 				)}
-				<button
-					type="submit"
-					className="block w-full p-3 text-center text-lg text-gray-50 bg-blue-600 rounded-lg"
-				>
-					Sign in
-				</button>
+
+				<p className="text-center">
+					{loading ? (
+						<SmallSpinner />
+					) : (
+						<button
+							type="submit"
+							className="block w-full p-3 text-center text-lg text-gray-50 bg-blue-600 rounded-lg"
+						>
+							Sign In
+						</button>
+					)}
+				</p>
 			</form>
 			<SocialLogin />
 			<p className="text-sm text-center sm:px-6 text-gray-600">
