@@ -17,6 +17,10 @@ const Register = () => {
 	const { register, handleSubmit } = useForm();
 	const navigate = useNavigate();
 
+	if (token) {
+		navigate('/');
+	}
+
 	const handleRegister = async (data) => {
 		console.log(data);
 
@@ -38,7 +42,7 @@ const Register = () => {
 			};
 			saveUserInTheDB(
 				data.userName,
-				data.email,
+				response.user.email,
 				imgBBResponse.data.data.url,
 				data.role
 			);
@@ -56,7 +60,10 @@ const Register = () => {
 	const saveUserInTheDB = async (name, email, image, role) => {
 		const user = { name, email, image, role };
 		try {
-			const response = await axios.post(`${process.env.URI}/users`, user);
+			const response = await axios.post(
+				`http://localhost:5000/users`,
+				user
+			);
 			console.log('saving user:', response);
 			setCreatedUserEmail(email);
 		} catch (error) {
