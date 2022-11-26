@@ -4,32 +4,32 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SmallSpinner from '../../Components/Shared/SmallSpinner/SmallSpinner';
 import SocialLogin from '../../Components/Shared/SocialLogin/SocialLogin';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import useToken from '../../Hooks/useToken';
 
 const Login = () => {
 	const [error, setError] = useState('');
 	const { login, loading, setLoading } = useContext(AuthContext);
 	const { register, handleSubmit } = useForm();
+	const [loginUserEmail, setLoginUserEmail] = useState('');
+	const [token] = useToken(loginUserEmail);
 
 	const location = useLocation();
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || '/home';
+
+	if (token) {
+		console.log(token);
+		navigate(from, { replace: true });
+	}
+
 	const handleLogin = async (data) => {
 		console.log(data);
 		try {
 			setLoading(true);
 			const response = await login(data.email, data.password);
 			console.log(response.user);
-			const currentUser = { email: response.user.email };
-			// const tokenResponse = await axios.post(
-			// 	`https://flawless-visa-server.vercel.app/jwt`,
-			// 	currentUser
-			// );
-			// console.log(tokenResponse.data);
-			// localStorage.setItem(
-			// 	'flawless-visa-token',
-			// 	tokenResponse.data.token
-			// );
-			navigate(from, { replace: true });
+			setLoginUserEmail(response.user.email);
+			// navigate(from, { replace: true });
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
