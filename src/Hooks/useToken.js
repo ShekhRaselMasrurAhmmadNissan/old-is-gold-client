@@ -14,7 +14,7 @@ const useToken = (email) => {
 
 					if (response.data.accessToken) {
 						localStorage.setItem(
-							'accessToken',
+							'old-is-gold-token',
 							response.data.accessToken
 						);
 						setToken(response.data.accessToken);
