@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
 	};
 
 	const logout = () => {
-		localStorage.removeItem('flawless-visa-token');
+		localStorage.removeItem('old-is-gold-token');
 		setLoading(true);
 		return signOut(auth);
 	};
