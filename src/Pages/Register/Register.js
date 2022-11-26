@@ -1,12 +1,17 @@
+import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import SmallSpinner from '../../Components/Shared/SmallSpinner/SmallSpinner';
 import SocialLogin from '../../Components/Shared/SocialLogin/SocialLogin';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import useToken from '../../Hooks/useToken';
 
 const Register = () => {
 	const [error, setError] = useState('');
+	const [createdUserEmail, setCreatedUserEmail] = useState('');
+	const [token] = useToken(createdUserEmail);
 	const { emailRegister, userUpdate, loading, setLoading } =
 		useContext(AuthContext);
 	const { register, handleSubmit } = useForm();
@@ -14,33 +19,51 @@ const Register = () => {
 
 	const handleRegister = async (data) => {
 		console.log(data);
-		const updatedUser = {
-			displayName: data.userName,
-			photoURL: data.photoURL,
-		};
+
 		try {
 			const response = await emailRegister(data.email, data.password);
 			const user = response.user;
-			const updateHandle = await userUpdate(updatedUser);
+			console.log(user);
 
-			const currentUser = { email: user.email };
-			// const tokenResponse = await axios.post(
-			// 	`https://flawless-visa-server.vercel.app/jwt`,
-			// 	currentUser
-			// );
-			// console.log(tokenResponse.data);
-			// localStorage.setItem(
-			// 	'flawless-visa-token',
-			// 	tokenResponse.data.token
-			// );
+			const image = data.image[0];
+			const formData = new FormData();
+			formData.append('image', image);
+
+			const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_ImageBB_Key}`;
+			const imgBBResponse = await axios.post(url, formData);
+			console.log(imgBBResponse.data);
+			const updatedUser = {
+				displayName: data.userName,
+				photoURL: imgBBResponse.data.data.url,
+			};
+			saveUserInTheDB(
+				data.userName,
+				data.email,
+				imgBBResponse.data.data.url,
+				data.role
+			);
+			const updateHandle = await userUpdate(updatedUser);
 
 			navigate('/home');
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
+			toast.error(error.message);
 			setLoading(false);
 		}
 	};
+
+	const saveUserInTheDB = async (name, email, image, role) => {
+		const user = { name, email, image, role };
+		try {
+			const response = await axios.post(`${process.env.URI}/users`, user);
+			console.log('saving user:', response);
+			setCreatedUserEmail(email);
+		} catch (error) {
+			console.error(error.name, error.message, error.stack);
+		}
+	};
+
 	return (
 		<div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-200 mt-8 md:mx-auto text-gray-800">
 			<h1 className="text-3xl font-bold text-center text-blue-500">
@@ -64,17 +87,17 @@ const Register = () => {
 						required
 					/>
 				</div>
-				<div className="space-y-1 text-sm">
-					<label htmlFor="photoURL" className="block text-gray-600">
-						Photo URL
+				<div className="form-control w-full max-w-xs">
+					<label className="label">
+						{' '}
+						<span className="label-text">Picture</span>
 					</label>
 					<input
-						type="text"
-						{...register('photoURL')}
-						id="photoURL"
-						placeholder="Photo URL"
+						type="file"
+						{...register('image', {
+							required: 'Picture is Required',
+						})}
 						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none"
-						required
 					/>
 				</div>
 				<div className="space-y-1 text-sm">
@@ -109,7 +132,7 @@ const Register = () => {
 					</label>
 					<select
 						{...register('role')}
-						className="select select-bordered w-full"
+						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none cursor-pointer"
 					>
 						<option value="buyer">Buyer</option>
 						<option value="seller">Seller</option>
