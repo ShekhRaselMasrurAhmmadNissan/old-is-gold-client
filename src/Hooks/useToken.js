@@ -9,7 +9,7 @@ const useToken = (email) => {
 			const generateToken = async () => {
 				try {
 					const response = await axios.get(
-						`${process.env.URI}/jwt?email=${email}`
+						`http://localhost:5000/jwt?email=${email}`
 					);
 
 					if (response.data.accessToken) {
