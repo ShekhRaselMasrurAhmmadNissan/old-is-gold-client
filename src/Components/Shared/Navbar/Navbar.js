@@ -21,7 +21,7 @@ const Navbar = () => {
 		<>
 			<li>
 				<NavLink
-					to="home"
+					to="/home"
 					title="Home"
 					className={({ isActive }) =>
 						isActive
@@ -34,7 +34,7 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
-					to="blogs"
+					to="/blogs"
 					title="Blogs"
 					className={({ isActive }) =>
 						isActive
@@ -47,20 +47,20 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
-					to="allProducts"
-					title="Product pricing"
+					to="/dashboard"
+					title="Dashboard"
 					className={({ isActive }) =>
 						isActive
 							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
 							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
 					}
 				>
-					All Products
+					Dashboard
 				</NavLink>
 			</li>
 			<li>
 				<NavLink
-					to="about-us"
+					to="/about-us"
 					title="About us"
 					className={({ isActive }) =>
 						isActive
@@ -105,7 +105,7 @@ const Navbar = () => {
 				<>
 					<li>
 						<NavLink
-							to="login"
+							to="/login"
 							title="Sign in"
 							className={({ isActive }) =>
 								isActive
@@ -118,7 +118,7 @@ const Navbar = () => {
 					</li>
 					<li>
 						<NavLink
-							to="register"
+							to="/register"
 							className={({ isActive }) =>
 								isActive
 									? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
