@@ -47,8 +47,9 @@ const Register = () => {
 				data.role
 			);
 			const updateHandle = await userUpdate(updatedUser);
+			console.log(updateHandle);
 
-			navigate('/home');
+			// navigate('/home');
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
@@ -59,13 +60,18 @@ const Register = () => {
 
 	const saveUserInTheDB = async (name, email, image, role) => {
 		const user = { name, email, image, role };
+		console.log(user);
 		try {
 			const response = await axios.post(
 				`http://localhost:5000/users`,
 				user
 			);
 			console.log('saving user:', response);
-			setCreatedUserEmail(email);
+			if (response.data.found) {
+				setCreatedUserEmail(response.data.email);
+			} else {
+				setCreatedUserEmail(email);
+			}
 		} catch (error) {
 			console.error(error.name, error.message, error.stack);
 		}
