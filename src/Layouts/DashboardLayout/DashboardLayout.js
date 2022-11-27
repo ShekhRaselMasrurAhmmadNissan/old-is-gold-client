@@ -8,9 +8,46 @@ const DashboardLayout = () => {
 	const { user } = useContext(AuthContext);
 	const [isAdmin] = useAdmin(user?.email);
 
+	const adminRoutes = (
+		<>
+			<li>
+				<NavLink to="allSellers">All Sellers</NavLink>
+			</li>
+			<li>
+				<NavLink to="allBuyers">All Buyer</NavLink>
+			</li>
+			<li>
+				<NavLink to="reportedItems">Reported Items</NavLink>
+			</li>
+		</>
+	);
+
 	return (
 		<div>
-			<Navbar />
+			<div className="flex flex-col">
+				<Navbar />
+				<div className="flex-none lg:hidden sticky top-0">
+					<label
+						htmlFor="dashboard-drawer"
+						className="btn btn-square btn-ghost w-full flex justify-start"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							className="inline-block w-6 h-6 stroke-current"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							></path>
+						</svg>{' '}
+						Dashboard Menu
+					</label>
+				</div>
+			</div>
 			<div className="drawer drawer-mobile">
 				<input
 					id="dashboard-drawer"
@@ -20,24 +57,13 @@ const DashboardLayout = () => {
 				<div className="drawer-content">
 					<Outlet />
 				</div>
-				<div className="drawer-side">
+				<div className="drawer-side bg-white">
 					<label
 						htmlFor="dashboard-drawer"
 						className="drawer-overlay"
 					></label>
-					<ul className="menu p-4 w-80 text-base-content">
-						{isAdmin && (
-							<>
-								<li>
-									<NavLink to="allSellers">
-										All Sellers
-									</NavLink>
-								</li>
-								<li>
-									<NavLink to="allBuyer">All Buyer</NavLink>
-								</li>
-							</>
-						)}
+					<ul className="menu p-4 lg:w-80 text-base-content">
+						{isAdmin && adminRoutes}
 					</ul>
 				</div>
 			</div>
