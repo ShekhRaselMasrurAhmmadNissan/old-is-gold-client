@@ -1,12 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Loading from '../../Components/Shared/Loading/Loading';
 import SmallLoading from '../../Components/Shared/SmallLoading/SmallLoading';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
 	const { register, handleSubmit } = useForm();
 	const [error, setError] = useState('');
+	const { user } = useContext(AuthContext);
+	const [loading, setLoading] = useState(false);
 
 	const {
 		data: categories,
@@ -23,9 +27,53 @@ const AddProduct = () => {
 		},
 	});
 
-	const handleAddProduct = (data) => {
-		console.log(data);
+	const handleAddProduct = async (data) => {
+		try {
+			setLoading(true);
+			const [categoryId, categoryName] = data.category.split('-');
+			const image = data.image[0];
+			const formData = new FormData();
+			formData.append('image', image);
+
+			const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_ImageBB_Key}`;
+			const imgBBResponse = await axios.post(url, formData);
+
+			if (imgBBResponse.data.success) {
+				const product = {
+					productName: data.productName,
+					productImage: imgBBResponse.data.data.url,
+					location: data.location,
+					categoryId,
+					categoryName,
+					resalePrice: parseFloat(data.resalePrice),
+					originalPrice: parseFloat(data.originalPrice),
+					yearsOfUsed: parseInt(data.yearsOfUsed),
+					condition: data.condition,
+					description: data.description,
+					sellerName: user.displayName,
+					sellerEmail: user.email,
+					verified: false,
+					sold: false,
+					advertised: false,
+				};
+
+				const response = await axios.post(
+					`http://localhost:5000/products`,
+					product
+				);
+				console.log(response);
+				setLoading(false);
+			}
+		} catch (error) {
+			console.error(error);
+			setLoading(false);
+		}
 	};
+
+	if (loading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="w-full max-w-lg p-8 space-y-3 rounded-xl bg-gray-200 mt-8 md:mx-auto text-gray-800">
 			<h1 className="text-3xl font-bold text-center text-blue-500">
@@ -132,12 +180,15 @@ const AddProduct = () => {
 					/>
 				</div>
 				<div className="space-y-1 text-sm">
-					<label htmlFor="yearsOfUse" className="block text-gray-600">
+					<label
+						htmlFor="yearsOfUsed"
+						className="block text-gray-600"
+					>
 						Years of Used
 					</label>
 					<input
 						type="number"
-						{...register('yearsOfUse')}
+						{...register('yearsOfUsed')}
 						id="yearsOfUse"
 						placeholder="Years of Used"
 						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none"
