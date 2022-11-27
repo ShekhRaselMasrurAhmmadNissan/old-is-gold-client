@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../../Components/Shared/Loading/Loading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useAdmin from '../../Hooks/useAdmin';
 
 const AdminRoute = ({ children }) => {
-	const { user, loading, logOut } = useContext(AuthContext);
+	const { user, loading, logout } = useContext(AuthContext);
 	const [isAdmin, isAdminLoading] = useAdmin(user?.email);
 	const location = useLocation();
 
 	if (loading || isAdminLoading) {
-		return <progress className="progress w-56"></progress>;
+		return <Loading />;
 	}
 
 	if (user && isAdmin) {
@@ -22,7 +23,7 @@ const AdminRoute = ({ children }) => {
 		);
 	}
 
-	return logOut()
+	return logout()
 		.then(() => {
 			return (
 				<Navigate

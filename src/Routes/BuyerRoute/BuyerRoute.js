@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../../Components/Shared/Loading/Loading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useBuyer from '../../Hooks/useBuyer';
 
 const BuyerRoute = ({ children }) => {
-	const { user, loading, logOut } = useContext(AuthContext);
+	const { user, loading, logout } = useContext(AuthContext);
 	const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
 	const location = useLocation();
 
 	if (loading || isBuyerLoading) {
-		return <progress className="progress w-56"></progress>;
+		return <Loading />;
 	}
 
 	if (user && isBuyer) {
@@ -22,7 +23,7 @@ const BuyerRoute = ({ children }) => {
 		);
 	}
 
-	return logOut()
+	return logout()
 		.then(() => {
 			return (
 				<Navigate
