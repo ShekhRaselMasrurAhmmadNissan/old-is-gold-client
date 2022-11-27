@@ -3,6 +3,7 @@ import AddProduct from '../Pages/AddProduct/AddProduct';
 import AllBuyer from '../Pages/AllBuyer/AllBuyer';
 import AllProducts from '../Pages/AllProducts/AllProducts';
 import AllSeller from '../Pages/AllSeller/AllSeller';
+import Blogs from '../Pages/Blogs/Blogs';
 import CategoryProducts from '../Pages/CategoryProducts/CategoryProducts';
 import DashboardMain from '../Pages/DashboardMain/DashboardMain';
 import Error from '../Pages/Error/Error';
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
 			{ path: 'home', element: <Home /> },
 			{ path: 'login', element: <Login /> },
 			{ path: 'register', element: <Register /> },
+			{ path: 'blogs', element: <Blogs /> },
 			{
 				path: 'categories/:id',
 				element: <CategoryProducts />,
