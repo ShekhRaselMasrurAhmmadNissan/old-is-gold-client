@@ -37,7 +37,7 @@ const DashboardLayout = () => {
 	);
 
 	return (
-		<div className="min-h-screen">
+		<div className="">
 			<Navbar />
 			<div className="flex-none lg:hidden sticky top-0">
 				<label

@@ -37,13 +37,16 @@ const AddProduct = () => {
 				className="space-y-6 ng-untouched ng-pristine ng-valid"
 			>
 				<div className="space-y-1 text-sm">
-					<label htmlFor="name" className="block text-gray-600">
+					<label
+						htmlFor="productName"
+						className="block text-gray-600"
+					>
 						Product Name
 					</label>
 					<input
 						type="text"
-						{...register('name')}
-						id="name"
+						{...register('productName')}
+						id="productName"
 						placeholder="Product Name"
 						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none"
 						required
@@ -140,6 +143,21 @@ const AddProduct = () => {
 							))}
 						</select>
 					)}
+				</div>
+				<div className="space-y-1 text-sm">
+					<label htmlFor="condition" className="block text-gray-600">
+						Condition
+					</label>
+					<select
+						{...register('condition')}
+						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none cursor-pointer"
+					>
+						<option value="Very Bad">Very Bad</option>
+						<option value="Bad">Bad</option>
+						<option value="Good">Good</option>
+						<option value="Very Good">Very Good</option>
+						<option value="Excellent">Excellent</option>
+					</select>
 				</div>
 				{error && (
 					<p className="text-md font-medium text-red-500">{error}</p>
