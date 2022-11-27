@@ -65,6 +65,28 @@ const AddProduct = () => {
 					/>
 				</div>
 				<div className="space-y-1 text-sm">
+					<label htmlFor="category" className="block text-gray-600">
+						Category
+					</label>
+					{isLoading ? (
+						<SmallLoading />
+					) : (
+						<select
+							{...register('category')}
+							className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none cursor-pointer"
+						>
+							{categories.map((category) => (
+								<option
+									key={category._id}
+									value={`${category._id}-${category.name}`}
+								>
+									{category.name}
+								</option>
+							))}
+						</select>
+					)}
+				</div>
+				<div className="space-y-1 text-sm">
 					<label htmlFor="location" className="block text-gray-600">
 						Location
 					</label>
@@ -122,28 +144,7 @@ const AddProduct = () => {
 						required
 					/>
 				</div>
-				<div className="space-y-1 text-sm">
-					<label htmlFor="category" className="block text-gray-600">
-						Category
-					</label>
-					{isLoading ? (
-						<SmallLoading />
-					) : (
-						<select
-							{...register('category')}
-							className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none cursor-pointer"
-						>
-							{categories.map((category) => (
-								<option
-									key={category._id}
-									value={`${category._id}-${category.name}`}
-								>
-									{category.name}
-								</option>
-							))}
-						</select>
-					)}
-				</div>
+
 				<div className="space-y-1 text-sm">
 					<label htmlFor="condition" className="block text-gray-600">
 						Condition
@@ -158,6 +159,23 @@ const AddProduct = () => {
 						<option value="Very Good">Very Good</option>
 						<option value="Excellent">Excellent</option>
 					</select>
+				</div>
+				<div className="space-y-1 text-sm">
+					<label
+						htmlFor="description"
+						className="block text-gray-600"
+					>
+						Description
+					</label>
+					<textarea
+						type="text"
+						{...register('description')}
+						rows={5}
+						id="description"
+						placeholder="Description"
+						className="w-full px-4 py-3 rounded-md border-gray-300 bg-gray-50 text-gray-800 outline-none"
+						required
+					/>
 				</div>
 				{error && (
 					<p className="text-md font-medium text-red-500">{error}</p>
