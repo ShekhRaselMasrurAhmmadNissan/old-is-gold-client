@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 import useToken from '../../../Hooks/useToken';
 
@@ -14,6 +15,7 @@ const SocialLogin = () => {
 	const from = location.state?.from?.pathname || '/home';
 	const googleProvider = new GoogleAuthProvider();
 	if (token) {
+		toast.success('Login Successful.');
 		navigate(from, { replace: true });
 	}
 
@@ -27,6 +29,7 @@ const SocialLogin = () => {
 			);
 		} catch (error) {
 			console.error(error);
+			toast.error(error.message);
 		}
 	};
 

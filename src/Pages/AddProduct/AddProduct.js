@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
 import SmallLoading from '../../Components/Shared/SmallLoading/SmallLoading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
-	const { register, handleSubmit } = useForm();
+	const { register, handleSubmit, reset } = useForm();
 	const [error, setError] = useState('');
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
@@ -62,10 +63,13 @@ const AddProduct = () => {
 					product
 				);
 				console.log(response);
+				toast.success('Product Added Successful.');
+				reset();
 				setLoading(false);
 			}
 		} catch (error) {
 			console.error(error);
+			toast.error(error.message);
 			setLoading(false);
 		}
 	};

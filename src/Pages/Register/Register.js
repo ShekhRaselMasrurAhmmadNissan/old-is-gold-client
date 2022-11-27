@@ -18,6 +18,7 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	if (token) {
+		toast.success('User Registered Successfully.');
 		navigate('/');
 	}
 

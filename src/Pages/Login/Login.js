@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import SmallSpinner from '../../Components/Shared/SmallSpinner/SmallSpinner';
 import SocialLogin from '../../Components/Shared/SocialLogin/SocialLogin';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
@@ -18,6 +19,7 @@ const Login = () => {
 	const from = location.state?.from?.pathname || '/home';
 
 	if (token) {
+		toast.success('Login Successful.');
 		navigate(from, { replace: true });
 	}
 
@@ -32,6 +34,7 @@ const Login = () => {
 		} catch (error) {
 			console.error(error);
 			setError(error.message);
+			toast.error(error.message);
 			setLoading(false);
 		}
 	};
