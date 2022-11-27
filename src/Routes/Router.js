@@ -30,7 +30,11 @@ const router = createBrowserRouter([
 			{ path: 'blogs', element: <Blogs /> },
 			{
 				path: 'categories/:id',
-				element: <CategoryProducts />,
+				element: (
+					<PrivateRoute>
+						<CategoryProducts />
+					</PrivateRoute>
+				),
 				loader: ({ params }) =>
 					fetch(`http://localhost:5000/categories/${params.id}`),
 			},
@@ -63,12 +67,14 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: 'allProducts',
+				path: 'allProducts/:email',
 				element: (
 					<SellerRoute>
 						<AllProducts />
 					</SellerRoute>
 				),
+				loader: ({ params }) =>
+					fetch(`http://localhost:5000/products/${params.email}`),
 			},
 			{
 				path: 'addProduct',

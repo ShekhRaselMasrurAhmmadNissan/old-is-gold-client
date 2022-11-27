@@ -28,7 +28,9 @@ const DashboardLayout = () => {
 	const sellerRoutes = (
 		<>
 			<li>
-				<NavLink to="allProducts">All Products</NavLink>
+				<NavLink to={`allProducts/${user?.email}`}>
+					All Products
+				</NavLink>
 			</li>
 			<li>
 				<NavLink to="addProduct">Add Product</NavLink>

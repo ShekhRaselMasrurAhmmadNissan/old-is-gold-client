@@ -83,9 +83,9 @@ const Blogs = () => {
 						Unit tests are typically automated tests written and run
 						by software developers to ensure that a section of an
 						application (known as the "unit") meets its design and
-						behaves as intended.[4] In procedural programming, a
-						unit could be an entire module, but it is more commonly
-						an individual function or procedure.
+						behaves as intended. In procedural programming, a unit
+						could be an entire module, but it is more commonly an
+						individual function or procedure.
 					</p>
 					<p>
 						Unit testing is something you do as you're writing code.
