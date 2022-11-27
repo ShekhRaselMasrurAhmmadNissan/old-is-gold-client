@@ -4,10 +4,12 @@ import Footer from '../../Components/Shared/Footer/Footer';
 import Navbar from '../../Components/Shared/Navbar/Navbar';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useAdmin from '../../Hooks/useAdmin';
+import useSeller from '../../Hooks/useSeller';
 
 const DashboardLayout = () => {
 	const { user } = useContext(AuthContext);
 	const [isAdmin] = useAdmin(user?.email);
+	const [isSeller] = useSeller(user?.email);
 
 	const adminRoutes = (
 		<>
@@ -19,6 +21,17 @@ const DashboardLayout = () => {
 			</li>
 			<li>
 				<NavLink to="reportedItems">Reported Items</NavLink>
+			</li>
+		</>
+	);
+
+	const sellerRoutes = (
+		<>
+			<li>
+				<NavLink to="allProducts">All Products</NavLink>
+			</li>
+			<li>
+				<NavLink to="addProduct">Add Product</NavLink>
 			</li>
 		</>
 	);
@@ -64,6 +77,7 @@ const DashboardLayout = () => {
 					></label>
 					<ul className="menu p-4 lg:w-80 text-base-content">
 						{isAdmin && adminRoutes}
+						{isSeller && sellerRoutes}
 					</ul>
 				</div>
 			</div>
