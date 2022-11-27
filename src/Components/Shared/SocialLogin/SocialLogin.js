@@ -1,31 +1,53 @@
+import axios from 'axios';
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import useToken from '../../../Hooks/useToken';
 
 const SocialLogin = () => {
 	const { providerSignIn } = useContext(AuthContext);
+	const [createdUserEmail, setCreatedUserEmail] = useState('');
+	const [token] = useToken(createdUserEmail);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || '/home';
 	const googleProvider = new GoogleAuthProvider();
+	if (token) {
+		navigate(from, { replace: true });
+	}
 
 	const handleGoogleSignIn = async () => {
 		try {
 			const response = await providerSignIn(googleProvider);
-			// console.log(response.user);
-			const currentUser = { email: response.user.email };
-			// const tokenResponse = await axios.post(
-			// 	`https://flawless-visa-server.vercel.app/jwt`,
-			// 	currentUser
-			// );
-			// console.log(tokenResponse.data);
-			// localStorage.setItem('flawless-visa-token', tokenResponse.data.token);
-			navigate(from, { replace: true });
+			saveUserInTheDB(
+				response.user.userName,
+				response.user.email,
+				response.user.photoURL
+			);
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	const saveUserInTheDB = async (name, email, image) => {
+		const user = { name, email, image, role: 'buyer' };
+		try {
+			const response = await axios.post(
+				`http://localhost:5000/users`,
+				user
+			);
+			console.log('saving user:', response);
+			if (response.data.found) {
+				setCreatedUserEmail(response.data.email);
+			} else {
+				setCreatedUserEmail(email);
+			}
+		} catch (error) {
+			console.error(error.name, error.message, error.stack);
+		}
+	};
+
 	return (
 		<>
 			<div className="flex items-center pt-4 space-x-1">
