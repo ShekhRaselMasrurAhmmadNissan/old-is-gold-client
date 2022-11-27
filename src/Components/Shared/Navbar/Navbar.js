@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { FaUserAlt } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const Navbar = () => {
@@ -133,7 +133,6 @@ const Navbar = () => {
 			)}
 		</>
 	);
-
 	return (
 		<div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl lg:px-4">
 			<div className="relative flex items-center justify-between">
@@ -143,23 +142,8 @@ const Navbar = () => {
 					title="Company"
 					className="inline-flex items-center mr-8"
 				>
-					<svg
-						className="w-8 text-deep-purple-accent-400"
-						viewBox="0 0 24 24"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeMiterlimit="10"
-						stroke="currentColor"
-						fill="none"
-					>
-						<rect x="3" y="1" width="7" height="12" />
-						<rect x="3" y="17" width="7" height="6" />
-						<rect x="14" y="1" width="7" height="6" />
-						<rect x="14" y="11" width="7" height="12" />
-					</svg>
-					<span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-						Company
+					<span className="ml-2 text-xl font-bold tracking-wide text-yellow-500 uppercase">
+						Old is Gold
 					</span>
 				</a>
 				<ul className="flex items-center hidden space-x-8 lg:flex text-xl">
@@ -188,7 +172,7 @@ const Navbar = () => {
 						</svg>
 					</button>
 					{isMenuOpen && (
-						<div className="absolute top-0 left-0 w-full">
+						<div className="absolute top-0 left-0 w-full z-50">
 							<div className="p-5 bg-white border rounded shadow-sm">
 								<div className="flex items-center justify-between mb-4">
 									<div>
@@ -198,43 +182,8 @@ const Navbar = () => {
 											title="Company"
 											className="inline-flex items-center"
 										>
-											<svg
-												className="w-8 text-deep-purple-accent-400"
-												viewBox="0 0 24 24"
-												strokeLinejoin="round"
-												strokeWidth="2"
-												strokeLinecap="round"
-												strokeMiterlimit="10"
-												stroke="currentColor"
-												fill="none"
-											>
-												<rect
-													x="3"
-													y="1"
-													width="7"
-													height="12"
-												/>
-												<rect
-													x="3"
-													y="17"
-													width="7"
-													height="6"
-												/>
-												<rect
-													x="14"
-													y="1"
-													width="7"
-													height="6"
-												/>
-												<rect
-													x="14"
-													y="11"
-													width="7"
-													height="12"
-												/>
-											</svg>
-											<span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-												Company
+											<span className="ml-2 text-xl font-bold tracking-wide text-yellow-500 uppercase">
+												Old is Gold
 											</span>
 										</a>
 									</div>
