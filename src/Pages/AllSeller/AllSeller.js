@@ -32,7 +32,7 @@ const AllSeller = () => {
 				</p>
 			) : isLoading ? (
 				<Loading />
-			) : (
+			) : allSeller.length > 0 ? (
 				<div className="overflow-x-auto">
 					<table className="table w-full">
 						<thead>
@@ -61,6 +61,10 @@ const AllSeller = () => {
 						</tbody>
 					</table>
 				</div>
+			) : (
+				<p className="text-center font-medium text-blue-500 italic text-2xl mt-8">
+					Sorry No Seller to show.
+				</p>
 			)}
 		</div>
 	);
