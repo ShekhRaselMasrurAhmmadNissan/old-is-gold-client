@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { format } from 'date-fns/esm';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -12,6 +13,8 @@ const AddProduct = () => {
 	const [error, setError] = useState('');
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(false);
+	const time = new Date();
+	const postingTime = format(time, 'Pp');
 
 	const {
 		data: categories,
@@ -46,6 +49,7 @@ const AddProduct = () => {
 					location: data.location,
 					categoryId,
 					categoryName,
+					postingTime,
 					resalePrice: parseFloat(data.resalePrice),
 					originalPrice: parseFloat(data.originalPrice),
 					yearsOfUsed: parseInt(data.yearsOfUsed),
@@ -53,9 +57,11 @@ const AddProduct = () => {
 					description: data.description,
 					sellerName: user.displayName,
 					sellerEmail: user.email,
+					sellerImage: user.photoURL,
 					verified: false,
 					sold: false,
 					advertised: false,
+					reported: false,
 				};
 
 				const response = await axios.post(
