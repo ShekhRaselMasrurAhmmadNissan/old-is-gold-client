@@ -21,7 +21,7 @@ const SocialLogin = () => {
 		try {
 			const response = await providerSignIn(googleProvider);
 			saveUserInTheDB(
-				response.user.userName,
+				response.user.displayName,
 				response.user.email,
 				response.user.photoURL
 			);
