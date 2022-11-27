@@ -142,7 +142,7 @@ const Navbar = () => {
 					title="Company"
 					className="inline-flex items-center mr-8"
 				>
-					<span className="ml-2 text-xl font-bold tracking-wide text-yellow-500 uppercase">
+					<span className="ml-2 text-3xl font-bold tracking-wide text-yellow-500 uppercase">
 						Old is Gold
 					</span>
 				</a>
@@ -181,7 +181,7 @@ const Navbar = () => {
 											title="Old is Gold"
 											className="inline-flex items-center"
 										>
-											<span className="ml-2 text-xl font-bold tracking-wide text-yellow-500 uppercase">
+											<span className="ml-2 text-2xl font-bold tracking-wide text-yellow-500 uppercase">
 												Old is Gold
 											</span>
 										</Link>
