@@ -1,11 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import Lottie from 'lottie-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import smallSpinner from '../../../Assets/small-spinner.json';
 import SmallLoading from '../../Shared/SmallLoading/SmallLoading';
-import SmallSpinner from '../../Shared/SmallSpinner/SmallSpinner';
 
 const Categories = () => {
 	const {
