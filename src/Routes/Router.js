@@ -1,3 +1,4 @@
+import DashboardLayout from '../Layouts/DashboardLayout/DashboardLayout';
 import Error from '../Pages/Error/Error';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
 			{ path: 'login', element: <Login /> },
 			{ path: 'register', element: <Register /> },
 		],
+	},
+	{
+		path: '/dashboard',
+		element: <DashboardLayout />,
+		errorElement: <Error />,
 	},
 ]);
 
