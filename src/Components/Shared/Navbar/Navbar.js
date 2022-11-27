@@ -47,19 +47,6 @@ const Navbar = () => {
 			</li>
 			<li>
 				<NavLink
-					to="/dashboard"
-					title="Dashboard"
-					className={({ isActive }) =>
-						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
-							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
-					}
-				>
-					Dashboard
-				</NavLink>
-			</li>
-			<li>
-				<NavLink
 					to="/about-us"
 					title="About us"
 					className={({ isActive }) =>
@@ -73,6 +60,19 @@ const Navbar = () => {
 			</li>
 			{user && user.uid ? (
 				<>
+					<li>
+						<NavLink
+							to="/dashboard"
+							title="Dashboard"
+							className={({ isActive }) =>
+								isActive
+									? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
+									: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
+							}
+						>
+							Dashboard
+						</NavLink>
+					</li>
 					<li>
 						<button
 							title="Logout"
@@ -176,16 +176,15 @@ const Navbar = () => {
 							<div className="p-5 bg-white border rounded shadow-sm">
 								<div className="flex items-center justify-between mb-4">
 									<div>
-										<a
-											href="/"
-											aria-label="Company"
-											title="Company"
+										<Link
+											to="/"
+											title="Old is Gold"
 											className="inline-flex items-center"
 										>
 											<span className="ml-2 text-xl font-bold tracking-wide text-yellow-500 uppercase">
 												Old is Gold
 											</span>
-										</a>
+										</Link>
 									</div>
 									<div>
 										<button
