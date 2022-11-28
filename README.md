@@ -17,6 +17,13 @@ This is an second hand product buy and sale website.
 -   Buyer can order product and report product.
 -   Buyer can pay for the products too.
 
+## Important Note
+
+To use all the feature please use this Email and Password for the Admin.
+
+-   Email: all@gmail.com
+-   Password: 123456
+
 ## Tech
 
 This project was created using CRA and the packages was installed by using [npm]
