@@ -1,5 +1,8 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useContext } from 'react';
 import { FaRegGem } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
 
 const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 	const {
@@ -21,6 +24,34 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 		sold,
 		verified,
 	} = product;
+	const { user } = useContext(AuthContext);
+
+	const handleReport = async (id) => {
+		try {
+			const report = await axios.patch(
+				`http://localhost:5000/products/report/${id}?email=${user?.email}`,
+				{},
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
+			);
+			console.log(report.data);
+			toast.success('Report Successful Successfully.');
+		} catch (error) {
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
+			toast.error('Something Went wrong. Failed to report.');
+		}
+	};
 
 	return (
 		<div className="rounded-md shadow-md sm:w-96 bg-gray-50 text-gray-800">
@@ -29,10 +60,10 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 					<img
 						src={sellerImage}
 						alt=""
-						className="object-cover object-center w-8 h-8 rounded-full shadow-sm bg-gray-500 border-gray-300"
+						className="object-cover object-center w-10 h-10 rounded-full shadow-sm bg-gray-500 border-gray-300"
 					/>
 					<div className="-space-y-1">
-						<h2 className="text-sm font-semibold leading-none">
+						<h2 className="text-lg font-semibold leading-none text-blue-400">
 							{sellerName} {verified && <FaRegGem />}
 						</h2>
 						<span className="inline-block text-xs leading-none text-gray-600">
@@ -74,7 +105,10 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 						>
 							Book Now
 						</label>
-						<button className="py-2 px-6 font-medium rounded-2xl bg-red-400 text-white">
+						<button
+							className="py-2 px-6 font-medium rounded-2xl bg-red-400 text-white"
+							onClick={() => handleReport(product._id)}
+						>
 							Report
 						</button>
 					</div>

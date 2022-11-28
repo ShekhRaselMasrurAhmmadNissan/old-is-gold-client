@@ -58,7 +58,6 @@ const AddProduct = () => {
 					sellerName: user.displayName,
 					sellerEmail: user.email,
 					sellerImage: user.photoURL,
-					verified: false,
 					sold: false,
 					advertised: false,
 					reported: false,

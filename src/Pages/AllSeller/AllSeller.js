@@ -40,6 +40,62 @@ const AllSeller = () => {
 		},
 	});
 
+	const handleDelete = async (id) => {
+		console.log('Deleted', id);
+		try {
+			const deleteProduct = await axios.delete(
+				`http://localhost:5000/users/${id}?email=${user?.email}`,
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
+			);
+			console.log(deleteProduct.data);
+			toast.success('User Deleted Successfully.');
+			refetch();
+		} catch (error) {
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
+			toast.error('Something Went wrong. Failed to Delete.');
+		}
+	};
+	const handleVerify = async (seller) => {
+		const { sellerEmail, _id } = seller;
+		try {
+			const verifyResponse = await axios.patch(
+				`http://localhost:5000/users/verify/${_id}?email=${user?.email}`,
+				{ sellerEmail: sellerEmail },
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
+			);
+			console.log(verifyResponse.data);
+			toast.success('User verified Successfully.');
+			refetch();
+		} catch (error) {
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
+			toast.error('Something Went wrong. Failed to Verify.');
+		}
+	};
+
 	return (
 		<div className="mt-8 bg-gray-100 pt-8 rounded-xl">
 			<h1 className="text-center text-4xl font-medium text-blue-600">
@@ -61,6 +117,7 @@ const AllSeller = () => {
 								<th>Name</th>
 								<th>email</th>
 								<th>Picture</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -75,6 +132,28 @@ const AllSeller = () => {
 											alt=""
 											className="h-10 w-10 rounded-full"
 										/>
+									</td>
+									<td>
+										{seller?.verified ? (
+											'Verified'
+										) : (
+											<button
+												className="px-2 py-1 rounded-md text-white font-medium bg-blue-500"
+												onClick={() =>
+													handleVerify(seller)
+												}
+											>
+												Verify
+											</button>
+										)}
+										<button
+											className="px-2 py-1 rounded-md text-white font-medium bg-red-500 ml-4"
+											onClick={() =>
+												handleDelete(seller._id)
+											}
+										>
+											Delete
+										</button>
 									</td>
 								</tr>
 							))}

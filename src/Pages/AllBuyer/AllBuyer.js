@@ -40,6 +40,34 @@ const AllBuyer = () => {
 		},
 	});
 
+	const handleDelete = async (id) => {
+		console.log('Deleted', id);
+		try {
+			const deleteProduct = await axios.delete(
+				`http://localhost:5000/users/${id}?email=${user?.email}`,
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
+			);
+			console.log(deleteProduct.data);
+			toast.success('User Deleted Successfully.');
+			refetch();
+		} catch (error) {
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
+			toast.error('Something Went wrong. Failed to Delete.');
+		}
+	};
+
 	return (
 		<div className="mt-8 bg-gray-100 pt-8 rounded-xl">
 			<h1 className="text-center text-4xl font-medium text-blue-600">
@@ -61,20 +89,31 @@ const AllBuyer = () => {
 								<th>Name</th>
 								<th>email</th>
 								<th>Picture</th>
+								<th>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							{allBuyer.map((Buyer, index) => (
-								<tr key={Buyer._id}>
+							{allBuyer.map((buyer, index) => (
+								<tr key={buyer._id}>
 									<th>{index + 1}</th>
-									<td>{Buyer.name}</td>
-									<td>{Buyer.email}</td>
+									<td>{buyer.name}</td>
+									<td>{buyer.email}</td>
 									<td>
 										<img
-											src={Buyer.image}
+											src={buyer.image}
 											alt=""
 											className="h-10 w-10 rounded-full"
 										/>
+									</td>
+									<td>
+										<button
+											className="px-2 py-1 rounded-md text-white font-medium bg-red-500"
+											onClick={() =>
+												handleDelete(buyer._id)
+											}
+										>
+											Delete
+										</button>
 									</td>
 								</tr>
 							))}

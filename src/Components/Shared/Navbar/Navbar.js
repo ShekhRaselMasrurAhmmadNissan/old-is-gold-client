@@ -46,19 +46,6 @@ const Navbar = () => {
 					Blogs
 				</NavLink>
 			</li>
-			<li>
-				<NavLink
-					to="/about-us"
-					title="About us"
-					className={({ isActive }) =>
-						isActive
-							? `font-medium tracking-wide text-gray-700 transition-colors duration-500 border-b-4 border-b-emerald-600 pb-1`
-							: `font-medium tracking-wide text-gray-700 transition-colors duration-500 hover:text-teal-600 hover:drop-shadow-xl`
-					}
-				>
-					About us
-				</NavLink>
-			</li>
 			{user && user.uid ? (
 				<>
 					<li>
