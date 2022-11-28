@@ -77,7 +77,7 @@ const MyOrders = () => {
 									<td>{order.sellerName}</td>
 									<td>
 										{order.sold ? (
-											'Sold'
+											'Paid'
 										) : (
 											<Link
 												to={`../payment/${order._id}`}
