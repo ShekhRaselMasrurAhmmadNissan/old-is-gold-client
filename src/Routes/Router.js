@@ -10,6 +10,7 @@ import Error from '../Pages/Error/Error';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
 import MyOrders from '../Pages/MyOrders/MyOrders';
+import Payment from '../Pages/Payment/Payment';
 import Register from '../Pages/Register/Register';
 import AdminRoute from './AdminRoute/AdminRoute';
 import BuyerRoute from './BuyerRoute/BuyerRoute';
@@ -89,6 +90,14 @@ const router = createBrowserRouter([
 				element: (
 					<BuyerRoute>
 						<MyOrders />
+					</BuyerRoute>
+				),
+			},
+			{
+				path: 'payment/:id',
+				element: (
+					<BuyerRoute>
+						<Payment />
 					</BuyerRoute>
 				),
 			},

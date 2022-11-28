@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
@@ -70,9 +71,13 @@ const MyOrders = () => {
 										{order.sold ? (
 											'Sold'
 										) : (
-											<button className="px-2 py-1 rounded-md text-white font-medium bg-blue-500 mr-2">
-												Pay
-											</button>
+											<Link
+												to={`../payment/${order._id}`}
+											>
+												<button className="px-2 py-1 rounded-md text-white font-medium bg-blue-500 mr-2">
+													Pay
+												</button>
+											</Link>
 										)}
 									</td>
 								</tr>
