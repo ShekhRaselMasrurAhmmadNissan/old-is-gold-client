@@ -16,6 +16,7 @@ const BookingModal = ({ orderProduct, setOrderProduct }) => {
 				buyerImage: user?.photoURL,
 				productID: orderProduct._id,
 				productName: data.productName,
+				productImage: orderProduct.productImage,
 				meetingLocation: data.meetingLocation,
 				categoryName: orderProduct.categoryName,
 				resalePrice: parseFloat(orderProduct.resalePrice),

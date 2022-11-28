@@ -56,6 +56,7 @@ const MyOrders = () => {
 								<th></th>
 								<th>Product Name</th>
 								<th>Price</th>
+								<th>Product Image</th>
 								<th>seller Name</th>
 								<th>Action</th>
 							</tr>
@@ -66,6 +67,13 @@ const MyOrders = () => {
 									<th>{index + 1}</th>
 									<td>{order.productName}</td>
 									<td>{order.resalePrice}</td>
+									<td>
+										<img
+											src={order.productImage}
+											alt=""
+											className="h-10 w-10 rounded-full"
+										/>
+									</td>
 									<td>{order.sellerName}</td>
 									<td>
 										{order.sold ? (
