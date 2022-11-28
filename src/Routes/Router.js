@@ -12,6 +12,7 @@ import Login from '../Pages/Login/Login';
 import MyOrders from '../Pages/MyOrders/MyOrders';
 import Payment from '../Pages/Payment/Payment';
 import Register from '../Pages/Register/Register';
+import ReportedProducts from '../Pages/ReportedProducts/ReportedProducts';
 import AdminRoute from './AdminRoute/AdminRoute';
 import BuyerRoute from './BuyerRoute/BuyerRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
@@ -39,7 +40,9 @@ const router = createBrowserRouter([
 					</PrivateRoute>
 				),
 				loader: ({ params }) =>
-					fetch(`http://localhost:5000/categories/${params.id}`),
+					fetch(
+						`https://old-is-gold-server-pi.vercel.app/categories/${params.id}`
+					),
 			},
 		],
 	},
@@ -66,6 +69,14 @@ const router = createBrowserRouter([
 				element: (
 					<AdminRoute>
 						<AllBuyer />
+					</AdminRoute>
+				),
+			},
+			{
+				path: 'reportedItems',
+				element: (
+					<AdminRoute>
+						<ReportedProducts />
 					</AdminRoute>
 				),
 			},

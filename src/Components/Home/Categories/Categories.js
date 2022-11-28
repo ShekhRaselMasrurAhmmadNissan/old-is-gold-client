@@ -14,7 +14,7 @@ const Categories = () => {
 		queryKey: ['categories'],
 		queryFn: async () => {
 			const response = await axios.get(
-				`http://localhost:5000/categories`
+				`https://old-is-gold-server-pi.vercel.app/categories`
 			);
 			return response.data;
 		},

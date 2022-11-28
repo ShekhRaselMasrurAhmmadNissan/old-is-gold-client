@@ -20,16 +20,19 @@ const CheckOutForm = ({ order }) => {
 
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
-		fetch('http://localhost:5000/create-payment-intent', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				authorization: `bearer ${localStorage.getItem(
-					'old-is-gold-token'
-				)}`,
-			},
-			body: JSON.stringify({ resalePrice }),
-		})
+		fetch(
+			'https://old-is-gold-server-pi.vercel.app/create-payment-intent',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					authorization: `bearer ${localStorage.getItem(
+						'old-is-gold-token'
+					)}`,
+				},
+				body: JSON.stringify({ resalePrice }),
+			}
+		)
 			.then((res) => res.json())
 			.then((data) => setClientSecret(data.clientSecret));
 	}, [resalePrice]);
@@ -77,7 +80,7 @@ const CheckOutForm = ({ order }) => {
 				buyerEmail,
 				productID: productID,
 			};
-			fetch('http://localhost:5000/payments', {
+			fetch('https://old-is-gold-server-pi.vercel.app/payments', {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json',

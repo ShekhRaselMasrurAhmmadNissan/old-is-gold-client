@@ -20,7 +20,7 @@ const MyOrders = () => {
 		queryFn: async () => {
 			try {
 				const response = await axios.get(
-					`http://localhost:5000/orders?email=${user?.email}`,
+					`https://old-is-gold-server-pi.vercel.app/orders?email=${user?.email}`,
 					{
 						headers: {
 							authorization: `bearer ${localStorage.getItem(

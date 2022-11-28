@@ -5,46 +5,35 @@ import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
-const AllBuyer = () => {
+const ReportedProducts = () => {
 	const { user } = useContext(AuthContext);
+
 	const {
-		data: allBuyer,
+		data: products,
 		isLoading,
 		error,
 		isError,
 		refetch,
 	} = useQuery({
-		queryKey: ['allBuyer'],
+		queryKey: ['products'],
 		queryFn: async () => {
-			try {
-				const response = await axios.get(
-					`https://old-is-gold-server-pi.vercel.app/users/allBuyer?email=${user?.email}`,
-					{
-						headers: {
-							authorization: `bearer ${localStorage.getItem(
-								'old-is-gold-token'
-							)}`,
-						},
-					}
-				);
-				return response.data;
-			} catch (error) {
-				if (
-					error.response.status === 401 ||
-					error.response.status === 403
-				) {
-					toast.error('Unauthorized Access');
-					// logOut().catch((err) => console.error(err));
-				}
-			}
+			const response = await axios.get(
+				`https://old-is-gold-server-pi.vercel.app/reported`
+			);
+			console.log(response);
+			return response.data;
 		},
 	});
+
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	const handleDelete = async (id) => {
 		console.log('Deleted', id);
 		try {
 			const deleteProduct = await axios.delete(
-				`https://old-is-gold-server-pi.vercel.app/users/${id}?email=${user?.email}`,
+				`https://old-is-gold-server-pi.vercel.app/products/${id}?email=${user?.email}`,
 				{
 					headers: {
 						authorization: `bearer ${localStorage.getItem(
@@ -54,7 +43,7 @@ const AllBuyer = () => {
 				}
 			);
 			console.log(deleteProduct.data);
-			toast.success('User Deleted Successfully.');
+			toast.success('Product Deleted Successfully.');
 			refetch();
 		} catch (error) {
 			if (
@@ -69,47 +58,41 @@ const AllBuyer = () => {
 	};
 
 	return (
-		<div className="mt-8 bg-gray-100 pt-8 rounded-xl">
-			<h1 className="text-center text-4xl font-medium text-blue-600">
-				All Buyer
-			</h1>
-			{isError ? (
-				<p className="text-2xl font-medium text-red-600">
-					Sorry..!!! Something went wrong.
-					<span className="italic underline">{error}</span>
-				</p>
-			) : isLoading ? (
-				<Loading />
-			) : allBuyer.length > 0 ? (
+		<div>
+			{products?.length > 0 ? (
 				<div className="overflow-x-auto">
 					<table className="table w-full">
 						<thead>
 							<tr>
 								<th></th>
-								<th>Name</th>
-								<th>email</th>
 								<th>Picture</th>
-								<th>Actions</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Status</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							{allBuyer.map((buyer, index) => (
-								<tr key={buyer._id}>
+							{products.map((product, index) => (
+								<tr key={product._id}>
 									<th>{index + 1}</th>
-									<td>{buyer.name}</td>
-									<td>{buyer.email}</td>
 									<td>
 										<img
-											src={buyer.image}
+											src={product.productImage}
 											alt=""
 											className="h-10 w-10 rounded-full"
 										/>
+									</td>
+									<td>{product.productName}</td>
+									<td>{product.categoryName}</td>
+									<td>
+										{product.sold ? 'Sold' : 'Available'}
 									</td>
 									<td>
 										<button
 											className="px-2 py-1 rounded-md text-white font-medium bg-red-500"
 											onClick={() =>
-												handleDelete(buyer._id)
+												handleDelete(product._id)
 											}
 										>
 											Delete
@@ -122,11 +105,11 @@ const AllBuyer = () => {
 				</div>
 			) : (
 				<p className="text-center font-medium text-blue-500 italic text-2xl mt-8">
-					Sorry No Buyer to show.
+					Sorry No product to show.
 				</p>
 			)}
 		</div>
 	);
 };
 
-export default AllBuyer;
+export default ReportedProducts;

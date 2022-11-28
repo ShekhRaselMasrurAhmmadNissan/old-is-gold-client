@@ -63,7 +63,7 @@ const Register = () => {
 		console.log(user);
 		try {
 			const response = await axios.post(
-				`http://localhost:5000/users`,
+				`https://old-is-gold-server-pi.vercel.app/users`,
 				user
 			);
 			console.log('saving user:', response);

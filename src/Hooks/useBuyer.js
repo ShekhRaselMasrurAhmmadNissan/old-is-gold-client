@@ -9,7 +9,7 @@ const useBuyer = (email) => {
 			try {
 				const checkBuyer = async () => {
 					const response = await axios.get(
-						`http://localhost:5000/users/buyer/${email}`
+						`https://old-is-gold-server-pi.vercel.app/users/buyer/${email}`
 					);
 					console.log(response.data);
 					setIsBuyer(response.data.isBuyer);

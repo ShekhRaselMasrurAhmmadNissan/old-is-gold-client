@@ -9,7 +9,7 @@ const useToken = (email) => {
 			const generateToken = async () => {
 				try {
 					const response = await axios.get(
-						`http://localhost:5000/jwt?email=${email}`
+						`https://old-is-gold-server-pi.vercel.app/jwt?email=${email}`
 					);
 
 					if (response.data.accessToken) {

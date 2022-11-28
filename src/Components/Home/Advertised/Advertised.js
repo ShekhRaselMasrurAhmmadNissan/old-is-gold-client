@@ -17,7 +17,7 @@ const Advertised = () => {
 		queryKey: ['advertised'],
 		queryFn: async () => {
 			const response = await axios.get(
-				`http://localhost:5000/advertised`
+				`https://old-is-gold-server-pi.vercel.app/advertised`
 			);
 			console.log(response.data);
 			return response.data;

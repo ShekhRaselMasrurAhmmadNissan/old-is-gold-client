@@ -9,7 +9,7 @@ const useSeller = (email) => {
 			try {
 				const checkSeller = async () => {
 					const response = await axios.get(
-						`http://localhost:5000/users/seller/${email}`
+						`https://old-is-gold-server-pi.vercel.app/users/seller/${email}`
 					);
 					console.log(response.data);
 					setIsSeller(response.data.isSeller);

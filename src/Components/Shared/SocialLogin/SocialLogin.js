@@ -37,7 +37,7 @@ const SocialLogin = () => {
 		const user = { name, email, image, role: 'buyer' };
 		try {
 			const response = await axios.post(
-				`http://localhost:5000/users`,
+				`https://old-is-gold-server-pi.vercel.app/users`,
 				user
 			);
 			console.log('saving user:', response);

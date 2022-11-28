@@ -18,7 +18,7 @@ const AllProducts = () => {
 		queryKey: ['products'],
 		queryFn: async () => {
 			const response = await axios.get(
-				`http://localhost:5000/products/${user?.email}?email=${user?.email}`,
+				`https://old-is-gold-server-pi.vercel.app/products/${user?.email}?email=${user?.email}`,
 				{
 					headers: {
 						authorization: `bearer ${localStorage.getItem(
@@ -39,7 +39,7 @@ const AllProducts = () => {
 		console.log('Advertised', id);
 		try {
 			const advertisedProduct = await axios.patch(
-				`http://localhost:5000/products/advertised/${id}?email=${user?.email}`,
+				`https://old-is-gold-server-pi.vercel.app/products/advertised/${id}?email=${user?.email}`,
 				{},
 				{
 					headers: {
@@ -68,7 +68,7 @@ const AllProducts = () => {
 		console.log('Deleted', id);
 		try {
 			const deleteProduct = await axios.delete(
-				`http://localhost:5000/products/${id}?email=${user?.email}`,
+				`https://old-is-gold-server-pi.vercel.app/products/${id}?email=${user?.email}`,
 				{
 					headers: {
 						authorization: `bearer ${localStorage.getItem(

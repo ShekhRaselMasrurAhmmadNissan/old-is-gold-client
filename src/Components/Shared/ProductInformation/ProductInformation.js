@@ -3,8 +3,11 @@ import React, { useContext } from 'react';
 import { FaRegGem } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
+import useBuyer from '../../../Hooks/useBuyer';
 
 const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
+	const { user } = useContext(AuthContext);
+	const [isBuyer] = useBuyer(user?.email);
 	const {
 		_id,
 		productName,
@@ -24,12 +27,19 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 		sold,
 		verified,
 	} = product;
-	const { user } = useContext(AuthContext);
 
 	const handleReport = async (id) => {
+		if (!user) {
+			return toast.warning('You must login to Report a product.');
+		}
+		if (!isBuyer) {
+			return toast.warning(
+				'You must have be a buyer to Report a product.'
+			);
+		}
 		try {
 			const report = await axios.patch(
-				`http://localhost:5000/products/report/${id}?email=${user?.email}`,
+				`https://old-is-gold-server-pi.vercel.app/products/report/${id}?email=${user?.email}`,
 				{},
 				{
 					headers: {
@@ -51,6 +61,18 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 			}
 			toast.error('Something Went wrong. Failed to report.');
 		}
+	};
+
+	const handleBook = (product) => {
+		if (!user) {
+			return toast.warning('You must login to Report a product.');
+		}
+		if (!isBuyer) {
+			return toast.warning(
+				'You must have be a buyer to Report a product.'
+			);
+		}
+		setOrderProduct(product);
 	};
 
 	return (
@@ -101,7 +123,7 @@ const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 						<label
 							htmlFor="order-modal"
 							className="py-2 px-6 font-medium rounded-2xl bg-blue-400 text-white cursor-pointer"
-							onClick={() => setOrderProduct(product)}
+							onClick={() => handleBook(product)}
 						>
 							Book Now
 						</label>

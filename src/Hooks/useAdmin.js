@@ -9,7 +9,7 @@ const useAdmin = (email) => {
 			try {
 				const checkAdmin = async () => {
 					const response = await axios.get(
-						`http://localhost:5000/users/admin/${email}`
+						`https://old-is-gold-server-pi.vercel.app/users/admin/${email}`
 					);
 					console.log(response.data);
 					setIsAdmin(response.data.isAdmin);

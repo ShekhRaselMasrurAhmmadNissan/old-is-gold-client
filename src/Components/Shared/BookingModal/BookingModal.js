@@ -34,7 +34,7 @@ const BookingModal = ({ orderProduct, setOrderProduct }) => {
 			console.log(order);
 
 			const response = await axios.post(
-				`http://localhost:5000/orders`,
+				`https://old-is-gold-server-pi.vercel.app/orders`,
 				order
 			);
 

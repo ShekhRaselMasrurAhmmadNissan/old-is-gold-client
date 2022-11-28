@@ -27,7 +27,7 @@ const Payment = () => {
 		queryFn: async () => {
 			try {
 				const response = await axios.get(
-					`http://localhost:5000/orders/${id}?email=${user?.email}`
+					`https://old-is-gold-server-pi.vercel.app/orders/${id}?email=${user?.email}`
 				);
 				console.log(response.data);
 				return response.data;
