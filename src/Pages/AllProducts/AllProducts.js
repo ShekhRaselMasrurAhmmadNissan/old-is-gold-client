@@ -18,7 +18,14 @@ const AllProducts = () => {
 		queryKey: ['products'],
 		queryFn: async () => {
 			const response = await axios.get(
-				`http://localhost:5000/products/${user?.email}`
+				`http://localhost:5000/products/${user?.email}?email=${user?.email}`,
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
 			);
 			return response.data;
 		},
@@ -32,13 +39,27 @@ const AllProducts = () => {
 		console.log('Advertised', id);
 		try {
 			const advertisedProduct = await axios.patch(
-				`http://localhost:5000/products/advertised/${id}`
+				`http://localhost:5000/products/advertised/${id}?email=${user?.email}`,
+				{},
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
 			);
 			console.log(advertisedProduct.data);
 			toast.success('Product Advertised Successfully.');
 			refetch();
 		} catch (error) {
-			console.error(error);
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
 			toast.error('Something Went wrong. Failed to advertise.');
 		}
 	};
@@ -47,13 +68,26 @@ const AllProducts = () => {
 		console.log('Deleted', id);
 		try {
 			const deleteProduct = await axios.delete(
-				`http://localhost:5000/products/${id}`
+				`http://localhost:5000/products/${id}?email=${user?.email}`,
+				{
+					headers: {
+						authorization: `bearer ${localStorage.getItem(
+							'old-is-gold-token'
+						)}`,
+					},
+				}
 			);
 			console.log(deleteProduct.data);
 			toast.success('Product Deleted Successfully.');
 			refetch();
 		} catch (error) {
-			console.error(error);
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
 			toast.error('Something Went wrong. Failed to Delete.');
 		}
 	};

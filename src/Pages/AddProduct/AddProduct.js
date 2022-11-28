@@ -65,8 +65,15 @@ const AddProduct = () => {
 				};
 
 				const response = await axios.post(
-					`http://localhost:5000/products`,
-					product
+					`http://localhost:5000/products?email=${user?.email}`,
+					product,
+					{
+						headers: {
+							authorization: `bearer ${localStorage.getItem(
+								'old-is-gold-token'
+							)}`,
+						},
+					}
 				);
 				console.log(response);
 				toast.success('Product Added Successful.');
@@ -74,9 +81,14 @@ const AddProduct = () => {
 				setLoading(false);
 			}
 		} catch (error) {
-			console.error(error);
-			toast.error(error.message);
 			setLoading(false);
+			if (
+				error.response.status === 401 ||
+				error.response.status === 403
+			) {
+				toast.error('Unauthorized Access');
+				// logOut().catch((err) => console.error(err));
+			}
 		}
 	};
 

@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const AllBuyer = () => {
+	const { user } = useContext(AuthContext);
 	const {
 		data: allBuyer,
 		isLoading,
@@ -13,10 +16,27 @@ const AllBuyer = () => {
 	} = useQuery({
 		queryKey: ['allBuyer'],
 		queryFn: async () => {
-			const response = await axios.get(
-				`http://localhost:5000/users/allBuyer`
-			);
-			return response.data;
+			try {
+				const response = await axios.get(
+					`http://localhost:5000/users/allBuyer?email=${user?.email}`,
+					{
+						headers: {
+							authorization: `bearer ${localStorage.getItem(
+								'old-is-gold-token'
+							)}`,
+						},
+					}
+				);
+				return response.data;
+			} catch (error) {
+				if (
+					error.response.status === 401 ||
+					error.response.status === 403
+				) {
+					toast.error('Unauthorized Access');
+					// logOut().catch((err) => console.error(err));
+				}
+			}
 		},
 	});
 
