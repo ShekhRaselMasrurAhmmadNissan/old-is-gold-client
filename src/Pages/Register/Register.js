@@ -18,7 +18,6 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	if (token) {
-		toast.success('User Registered Successfully.');
 		navigate('/');
 	}
 
@@ -49,7 +48,7 @@ const Register = () => {
 			);
 			const updateHandle = await userUpdate(updatedUser);
 			console.log(updateHandle);
-
+			toast.success('User Registered Successfully.');
 			// navigate('/home');
 		} catch (error) {
 			console.error(error);

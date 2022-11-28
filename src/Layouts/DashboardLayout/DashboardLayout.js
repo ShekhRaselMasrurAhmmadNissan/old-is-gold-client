@@ -2,14 +2,17 @@ import React, { useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import Footer from '../../Components/Shared/Footer/Footer';
 import Navbar from '../../Components/Shared/Navbar/Navbar';
+import SmallLoading from '../../Components/Shared/SmallLoading/SmallLoading';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import useAdmin from '../../Hooks/useAdmin';
+import useBuyer from '../../Hooks/useBuyer';
 import useSeller from '../../Hooks/useSeller';
 
 const DashboardLayout = () => {
 	const { user } = useContext(AuthContext);
-	const [isAdmin] = useAdmin(user?.email);
-	const [isSeller] = useSeller(user?.email);
+	const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+	const [isSeller, isSellerLoading] = useSeller(user?.email);
+	const [isBuyer, isBuyerLoading] = useBuyer(user?.email);
 
 	const adminRoutes = (
 		<>
@@ -34,6 +37,14 @@ const DashboardLayout = () => {
 			</li>
 			<li>
 				<NavLink to="addProduct">Add Product</NavLink>
+			</li>
+		</>
+	);
+
+	const buyerRoutes = (
+		<>
+			<li>
+				<NavLink to={`orders/${user?.email}`}>My Orders</NavLink>
 			</li>
 		</>
 	);
@@ -77,10 +88,15 @@ const DashboardLayout = () => {
 						htmlFor="dashboard-drawer"
 						className="drawer-overlay"
 					></label>
-					<ul className="menu p-4 lg:w-80 text-base-content">
-						{isAdmin && adminRoutes}
-						{isSeller && sellerRoutes}
-					</ul>
+					{isAdminLoading || isSellerLoading || isBuyerLoading ? (
+						<SmallLoading />
+					) : (
+						<ul className="menu p-4 lg:w-80 text-base-content">
+							{isAdmin && adminRoutes}
+							{isSeller && sellerRoutes}
+							{isBuyer && buyerRoutes}
+						</ul>
+					)}
 				</div>
 			</div>
 			<Footer />

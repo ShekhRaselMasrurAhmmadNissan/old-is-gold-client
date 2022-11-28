@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
+import BookingModal from '../../Shared/BookingModal/BookingModal';
 import ProductInformation from '../../Shared/ProductInformation/ProductInformation';
+import ProductsCards from '../../Shared/ProductsCards/ProductsCards';
 import SmallSpinner from '../../Shared/SmallSpinner/SmallSpinner';
 
 const Advertised = () => {
@@ -37,11 +39,7 @@ const Advertised = () => {
 			<h1 className="text-center text-4xl font-medium text-blue-600">
 				Advertised Products
 			</h1>
-			<div className="grid grid-cols-1 lg:grid-cols-2 justify-center m-2">
-				{advertised.map((product) => (
-					<ProductInformation key={product._id} product={product} />
-				))}
-			</div>
+			<ProductsCards products={advertised} />
 		</div>
 	);
 };

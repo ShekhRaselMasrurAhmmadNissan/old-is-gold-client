@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaRegGem } from 'react-icons/fa';
 
-const ProductInformation = ({ product }) => {
+const ProductInformation = ({ product, orderProduct, setOrderProduct }) => {
 	const {
 		_id,
 		productName,
@@ -67,9 +67,13 @@ const ProductInformation = ({ product }) => {
 					</div>
 					<p>{description}</p>
 					<div className="flex justify-between items-center">
-						<button className="py-2 px-6 font-medium rounded-2xl bg-blue-400 text-white">
+						<label
+							htmlFor="order-modal"
+							className="py-2 px-6 font-medium rounded-2xl bg-blue-400 text-white cursor-pointer"
+							onClick={() => setOrderProduct(product)}
+						>
 							Book Now
-						</button>
+						</label>
 						<button className="py-2 px-6 font-medium rounded-2xl bg-red-400 text-white">
 							Report
 						</button>

@@ -15,7 +15,6 @@ const SocialLogin = () => {
 	const from = location.state?.from?.pathname || '/home';
 	const googleProvider = new GoogleAuthProvider();
 	if (token) {
-		toast.success('Login Successful.');
 		navigate(from, { replace: true });
 	}
 
@@ -27,6 +26,7 @@ const SocialLogin = () => {
 				response.user.email,
 				response.user.photoURL
 			);
+			toast.success('Login Successful.');
 		} catch (error) {
 			console.error(error);
 			toast.error(error.message);

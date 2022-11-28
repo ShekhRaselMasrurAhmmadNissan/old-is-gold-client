@@ -9,8 +9,10 @@ import DashboardMain from '../Pages/DashboardMain/DashboardMain';
 import Error from '../Pages/Error/Error';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login/Login';
+import MyOrders from '../Pages/MyOrders/MyOrders';
 import Register from '../Pages/Register/Register';
 import AdminRoute from './AdminRoute/AdminRoute';
+import BuyerRoute from './BuyerRoute/BuyerRoute';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import SellerRoute from './SellerRoute/SellerRoute';
 
@@ -80,6 +82,14 @@ const router = createBrowserRouter([
 					<SellerRoute>
 						<AddProduct />
 					</SellerRoute>
+				),
+			},
+			{
+				path: 'orders/:email',
+				element: (
+					<BuyerRoute>
+						<MyOrders />
+					</BuyerRoute>
 				),
 			},
 		],
