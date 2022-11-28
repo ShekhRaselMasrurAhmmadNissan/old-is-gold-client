@@ -1,13 +1,52 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
 
 const AllProducts = () => {
-	const products = useLoaderData();
-	const navigation = useNavigation();
-	if (navigation.state === 'loading') {
+	const { email } = useParams();
+
+	const {
+		data: products,
+		isLoading,
+		error,
+		isError,
+		refetch,
+	} = useQuery({
+		queryKey: ['products'],
+		queryFn: async () => {
+			const response = await axios.get(
+				`http://localhost:5000/products/${email}`
+			);
+			return response.data;
+		},
+	});
+
+	if (isLoading) {
 		return <Loading />;
 	}
+
+	const handleAdvertise = async (id) => {
+		console.log('Advertised', id);
+		try {
+			const advertisedProduct = await axios.patch(
+				`http://localhost:5000/products/advertised/${id}`
+			);
+			console.log(advertisedProduct.data);
+			toast.success('Product Advertised Successfully.');
+			refetch();
+		} catch (error) {
+			console.error(error);
+			toast.error('Something Went wrong. Failed to advertise.');
+		}
+	};
+
+	const handleDelete = async (id) => {
+		console.log('Deleted', id);
+	};
+
 	return (
 		<div>
 			{products.length > 0 ? (
@@ -39,7 +78,28 @@ const AllProducts = () => {
 									<td>
 										{product.sold ? 'Sold' : 'Available'}
 									</td>
-									<td></td>
+									<td>
+										{!product.sold && !product.advertised && (
+											<button
+												className="px-2 py-1 rounded-md text-white font-medium bg-blue-500 mr-2"
+												onClick={() =>
+													handleAdvertise(product._id)
+												}
+											>
+												Advertise
+											</button>
+										)}
+										{!product.sold && (
+											<button
+												className="px-2 py-1 rounded-md text-white font-medium bg-red-500"
+												onClick={() =>
+													handleDelete(product._id)
+												}
+											>
+												Delete
+											</button>
+										)}
+									</td>
 								</tr>
 							))}
 						</tbody>
