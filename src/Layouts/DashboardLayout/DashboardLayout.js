@@ -31,9 +31,7 @@ const DashboardLayout = () => {
 	const sellerRoutes = (
 		<>
 			<li>
-				<NavLink to={`allProducts/${user?.email}`}>
-					All Products
-				</NavLink>
+				<NavLink to={`allProducts`}>All Products</NavLink>
 			</li>
 			<li>
 				<NavLink to="addProduct">Add Product</NavLink>
@@ -44,7 +42,7 @@ const DashboardLayout = () => {
 	const buyerRoutes = (
 		<>
 			<li>
-				<NavLink to={`orders/${user?.email}`}>My Orders</NavLink>
+				<NavLink to={`orders`}>My Orders</NavLink>
 			</li>
 		</>
 	);

@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React from 'react';
-import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
+import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
 import Loading from '../../Components/Shared/Loading/Loading';
+import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 const AllProducts = () => {
-	const { email } = useParams();
+	const { user } = useContext(AuthContext);
 
 	const {
 		data: products,
@@ -18,7 +18,7 @@ const AllProducts = () => {
 		queryKey: ['products'],
 		queryFn: async () => {
 			const response = await axios.get(
-				`http://localhost:5000/products/${email}`
+				`http://localhost:5000/products/${user?.email}`
 			);
 			return response.data;
 		},

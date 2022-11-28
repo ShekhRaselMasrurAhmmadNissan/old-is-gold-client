@@ -69,7 +69,7 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: 'allProducts/:email',
+				path: 'allProducts',
 				element: (
 					<SellerRoute>
 						<AllProducts />
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
 				),
 			},
 			{
-				path: 'orders/:email',
+				path: 'orders',
 				element: (
 					<BuyerRoute>
 						<MyOrders />
