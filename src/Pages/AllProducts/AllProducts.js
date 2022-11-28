@@ -45,6 +45,17 @@ const AllProducts = () => {
 
 	const handleDelete = async (id) => {
 		console.log('Deleted', id);
+		try {
+			const deleteProduct = await axios.delete(
+				`http://localhost:5000/products/${id}`
+			);
+			console.log(deleteProduct.data);
+			toast.success('Product Deleted Successfully.');
+			refetch();
+		} catch (error) {
+			console.error(error);
+			toast.error('Something Went wrong. Failed to Delete.');
+		}
 	};
 
 	return (
