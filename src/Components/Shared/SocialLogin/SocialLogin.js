@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../../Contexts/AuthProvider/AuthProvider';
@@ -14,9 +15,12 @@ const SocialLogin = () => {
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || '/home';
 	const googleProvider = new GoogleAuthProvider();
-	if (token) {
-		navigate(from, { replace: true });
-	}
+
+	useEffect(() => {
+		if (token) {
+			navigate(from, { replace: true });
+		}
+	}, [from, navigate, token]);
 
 	const handleGoogleSignIn = async () => {
 		try {

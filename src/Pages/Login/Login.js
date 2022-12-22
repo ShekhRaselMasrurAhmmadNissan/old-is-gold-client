@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -18,9 +19,11 @@ const Login = () => {
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || '/home';
 
-	if (token) {
-		navigate(from, { replace: true });
-	}
+	useEffect(() => {
+		if (token) {
+			navigate(from, { replace: true });
+		}
+	}, [from, navigate, token]);
 
 	const handleLogin = async (data) => {
 		console.log(data);
