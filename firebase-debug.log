@@ -1,0 +1,85 @@
+[debug] [2024-04-21T14:28:46.328Z] ----------------------------------------------------------------------
+[debug] [2024-04-21T14:28:46.332Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-04-21T14:28:46.333Z] CLI Version:   11.14.4
+[debug] [2024-04-21T14:28:46.333Z] Platform:      win32
+[debug] [2024-04-21T14:28:46.333Z] Node Version:  v20.1.0
+[debug] [2024-04-21T14:28:46.334Z] Time:          Sun Apr 21 2024 20:28:46 GMT+0600 (Bangladesh Standard Time)
+[debug] [2024-04-21T14:28:46.334Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-21T14:28:46.339Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-04-21T14:28:46.552Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-21T14:28:46.553Z] > authorizing via signed-in user (darkcastle895@gmail.com)
+[debug] [2024-04-21T14:28:46.553Z] [iam] checking project old-is-gold-bbd8a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-04-21T14:28:46.555Z] > refreshing access token with scopes: []
+[debug] [2024-04-21T14:28:46.556Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-21T14:28:46.556Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-21T14:28:49.671Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-21T14:28:49.673Z] > refreshing access token with scopes: []
+[debug] [2024-04-21T14:28:49.674Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-21T14:28:49.675Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-21T14:28:52.560Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-21T14:28:53.711Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:144:12)
+    at refreshTokens (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:508:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Client.getAccessToken (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:149:23)
+    at async Client.addAuthHeader (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:140:21)
+    at async Client.request (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:96:34)
+    at async getFirebaseProject (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:295:21)
+    at async getDefaultHostingSite (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\getDefaultHostingSite.js:8:21)
+    at async requireHostingSite (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\requireHostingSite.js:9:18)
+    at async Object.fn (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js:74:9)
+    at async C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:214:17
+[error] 
+[error] Error: Failed to get Firebase project old-is-gold-bbd8a. Please make sure the project exists and your account has permission to access it.
+[debug] [2024-04-21T14:59:03.923Z] ----------------------------------------------------------------------
+[debug] [2024-04-21T14:59:03.927Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-04-21T14:59:03.928Z] CLI Version:   11.14.4
+[debug] [2024-04-21T14:59:03.928Z] Platform:      win32
+[debug] [2024-04-21T14:59:03.928Z] Node Version:  v20.1.0
+[debug] [2024-04-21T14:59:03.929Z] Time:          Sun Apr 21 2024 20:59:03 GMT+0600 (Bangladesh Standard Time)
+[debug] [2024-04-21T14:59:03.929Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-21T14:59:03.934Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-04-21T14:59:04.191Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-21T14:59:04.192Z] > authorizing via signed-in user (darkcastle895@gmail.com)
+[debug] [2024-04-21T14:59:04.192Z] [iam] checking project old-is-gold-bbd8a for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-04-21T14:59:04.194Z] > refreshing access token with scopes: []
+[debug] [2024-04-21T14:59:04.195Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-21T14:59:04.195Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[warn] !  Unable to fetch the CLI MOTD and remote config. 
+[debug] [2024-04-21T14:59:05.250Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2024-04-21T14:59:07.688Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2024-04-21T14:59:07.688Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-21T14:59:07.689Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/old-is-gold-bbd8a:testIamPermissions [none]
+[debug] [2024-04-21T14:59:07.689Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/old-is-gold-bbd8a:testIamPermissions x-goog-quota-user=projects/old-is-gold-bbd8a
+[debug] [2024-04-21T14:59:07.689Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/old-is-gold-bbd8a:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-04-21T14:59:18.074Z] [iam] error while checking permissions, command may fail: FirebaseError: Failed to make request to https://cloudresourcemanager.googleapis.com/v1/projects/old-is-gold-bbd8a:testIamPermissions
+[debug] [2024-04-21T14:59:18.076Z] > refreshing access token with scopes: []
+[debug] [2024-04-21T14:59:18.078Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-21T14:59:18.078Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-21T14:59:20.715Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-04-21T14:59:22.383Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:144:12)
+    at refreshTokens (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:508:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Client.getAccessToken (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:149:23)
+    at async Client.addAuthHeader (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:140:21)
+    at async Client.request (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:96:34)
+    at async getFirebaseProject (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:295:21)
+    at async getDefaultHostingSite (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\getDefaultHostingSite.js:8:21)
+    at async requireHostingSite (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\requireHostingSite.js:9:18)
+    at async Object.fn (C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\commands\deploy.js:74:9)
+    at async C:\Users\hp\AppData\Roaming\npm\node_modules\firebase-tools\lib\command.js:214:17
+[error] 
+[error] Error: Failed to get Firebase project old-is-gold-bbd8a. Please make sure the project exists and your account has permission to access it.
